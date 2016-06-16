@@ -80,7 +80,7 @@ stars = game.add.group();
     }
 scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
-}
+
 
 
 function update() {
