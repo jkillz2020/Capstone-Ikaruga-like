@@ -2,18 +2,31 @@
 <html lang="en"> 
 <head> 
   <meta charset="UTF-8" />
-  <title>Phaser - Making your first game, part 1</title>
-  <script type="text/javascript" src="js/phaser.min.js"></script>
-    <style type="text/css">
-        body {
-            margin: 0;
-        }
-    </style>
+  <title>Ikaruga-Like</title>
+    <style type="text/css" href= "Styles/main.css"></style>
+        
 </head>
 <body>
 
-<script type="text/javascript" src="app.js">
-</script>
+<div ng-app="Ikaruga-like">
+    <div ng-view>
+      <div id="Ikaruga-like">
+
+      </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="lib/bower_components/angular-route/angular-route.min.js"></script>
+<script type="text/javascript" src="lib/bower_components/phaser/build/phaser.min.js"></script>
+<script type="text/javascript" src="lib/bower_components/firebase/firebase.js"></script>
+
+<!--- User Scripts -->
+<!-- /*<script type="text/javascript" src="app/preload.js"</script> -->
+<script type="text/javascript" src="app/app.js"></script>
 
 </body>
+
 </html>
