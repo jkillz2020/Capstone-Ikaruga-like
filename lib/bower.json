@@ -17,6 +17,8 @@
   "dependencies": {
     "phaser": "phaser-official#^2.4.8",
     "gulp": "^3.9.1",
-    "firebase": "^3.0.5"
+    "firebase": "^3.0.5",
+    "angularfire": "^2.0.1",
+    "angular-route": "^1.5.7"
   }
 }
