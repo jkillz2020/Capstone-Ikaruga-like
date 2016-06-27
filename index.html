@@ -9,20 +9,20 @@
 <body>
 
 <div ng-app="Ikaruga-like">
-    <div ng-view>
-      <div id="Ikaruga-like">
-
-      </div>
+    <div id="Ikaruga-like" ng-view>
+      
     </div>
 </div>
 
 
-
+<script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="lib/bower_components/angular-route/angular-route.min.js"></script>
 <script type="text/javascript" src="lib/bower_components/phaser/build/phaser.min.js"></script>
-<script type="text/javascript" src="lib/bower_components/firebase/firebase.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+<script type="text/javascript" src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 <script type="text/javascript" src="lib/bower_components/angularfire/dist/angularfire.min.js"></script>
+
 <!--- User Scripts -->
 <script type="text/javascript" src="app/main.js"></script>
 
@@ -30,7 +30,8 @@
 <script type="text/javascript" src="app/Factories/AuthFactory.js"></script>
 
 <!--Controllers -->
-<script type="text/javascript" src="Controllers/GameplayCtrl.js"></script>
+<script type="text/javascript" src=app/Controllers/LoginCtrl.js></script>
+<script type="text/javascript" src="app/Controllers/GameplayCtrl.js"></script>
 
 
 

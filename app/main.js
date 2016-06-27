@@ -1,29 +1,25 @@
+"use strict"
 var app = angular.module("Ikaruga-like", ["ngRoute"])
   .constant("firebaseURL","https://ikaruga-like.firebaseio.com/")
   
 
-let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
-  if(AuthFactory.isAuthenticated()){
-    console.log("User is authenticated, resolve route promise");
-    resolve();
-  } else {
-    console.log("User is not authenticated, reject route promise");
-    reject();
-  }
-})
+// let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
+//   if(AuthFactory.isAuthenticated()){
+//     console.log("User is authenticated, resolve route promise");
+//     resolve();
+//   } else {
+//     console.log("User is not authenticated, reject route promise");
+//     reject();
+//   }
+// })
 
 app.config(function($routeProvider){
   $routeProvider.
     when('/',{
-      templateUrl: 'index.html',
+      templateUrl: 'partials/game.html',
       controller: 'GameplayCtrl',
-       resolve: {isAuth}
+       // resolve: {isAuth}
     }).
-    when('/ikaruga-like',{
-      templateUrl: 'index.html',
-      controller: 'GameplayCtrl',
-       resolve: {isAuth}
-     }).
       when('/login', {
         templateUrl: 'partials/login.html',
         controller: "LoginCtrl"
