@@ -1,0 +1,93 @@
+{
+    "world": {
+        "origin_x": 0,
+        "origin_y": 0,
+        "width": 1200,
+        "height": 800
+    },
+    "assets": {
+        "deep-space": {
+            "type": "image",
+            "source": "assets/deep-space.jpg"
+        },
+        "player": {
+            "type": "image",
+            "source": "spaceArt/png/player.png"
+        },
+        "aliens": {
+            "type": "spritesheet",
+            "source": "spaceArt/png/enemyShip.png"
+        },
+        "ship": {
+            "type": "image",
+            "source": "spaceArt/png/life.png"
+        },
+        "Bullet": {
+            "type": "image",
+            "source": "spaceArt/png/laserGreen.png"
+        },
+        "enemyBullet": {
+            "type": "image",
+            "source": "spaceArt/png/laserRed.png"
+        },
+        "explosions": {
+            "type": "spritesheet",
+            "source": "assets/Explosion_002_Tile_8x8_256x256.png"
+        }
+    },
+    "groups": [
+        "ships",
+        "bullets",
+        "aliens",
+        "enemyBullets",
+        "explosions"
+    ],
+    "prefabs": {
+        "player": {
+            "type": "ship",
+            "position": {
+                "x": 32,
+                "y": -150
+            },
+            "properties": {
+                "texture": "player.png",
+                "group": "player",
+                "velocity": 250,
+                "shoot_rate": 8,
+                "bullet_velocity": -400
+            }
+        },
+        "aliens": {
+            "type": "aliens",
+            "position": {
+                "x": 100,
+                "y": 50
+            },
+            "properties": {
+                "texture": "",
+                "group": "aliens",
+                "enemy_properties": {
+                    "texture": "enemyShip.png",
+                    "group": "aliens",
+                    "velocity": 0,
+                    "shoot_rate": 2000,
+                    "bullet_velocity": 120
+                }
+            }
+        }
+    },
+    "game_stats_data": {
+
+        "game_stats": {
+        "shots_fired": {"value": 0},
+        "enemies_killed": {"value": 0},
+        "lives_lost": {"value": 0}
+    },
+        "listeners": [
+            {"group": "bullets", "signal": "onShoot", "stat_name": "shots_fired", "value": 1},
+            {"group": "aliens", "signal": "onKill", "stat_name": "enemies_killed", "value": 1},
+            {"group": "ships", "signal": "onDeath", "stat_name": "lives_lost", "value": 1}
+        ]
+    }
+        
+}

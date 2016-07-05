@@ -1,5 +1,6 @@
 "use strict";
-app.factory("AuthFactory", function(firebaseURL) {
+angular.module('Ikaruga-like')
+  .factory("AuthFactory", function($http, $q, firebaseURL) {
   let ref = new Firebase(firebaseURL);
   let currentUserData = null;
 
