@@ -2,50 +2,76 @@
     "world": {
         "origin_x": 0,
         "origin_y": 0,
-        "width": 800,
-        "height": 600
+        "width": 1200,
+        "height": 800
     },
     "assets": {
-        "deep-space": { "type": "image", "source": "assets/deep-space.jpg" },
-        "player": { "type": "image", "source": "spaceArt/png/player.png" },
-        "aliens": { "type": "spritesheet", "source": "assets/ships_void.png", "frame_width": 50, "frame_height": 46, "frames": 3, "margin": 1, "spacing": 1 },
-        "ship": { "type": "image", "source": "spaceArt/png/life.png" },
-        "Bullet": { "type": "image", "source": "spaceArt/png/laserGreen.png" },
-        "enemyBullet": { "type": "image", "source": "spaceArt/png/laserRed.png" },
-        "explosions": { "type": "spritesheet", "source": "assets/Explosion_002_Tile_8x8_256x256.png" },
+        "deep-space": {
+            "type": "image",
+            "source": "assets/deep-space.jpg"
+        },
+        "player": {
+            "type": "image",
+            "source": "spaceArt/png/player.png"
+        },
+        "aliens": {
+            "type": "spritesheet",
+            "source": "spaceArt/png/enemyShip.png"
+        },
+        "ship": {
+            "type": "image",
+            "source": "spaceArt/png/life.png"
+        },
+        "Bullet": {
+            "type": "image",
+            "source": "spaceArt/png/laserGreen.png"
+        },
+        "enemyBullet": {
+            "type": "image",
+            "source": "spaceArt/png/laserRed.png"
+        },
+        "explosions": {
+            "type": "spritesheet",
+            "source": "assets/Explosion_002_Tile_8x8_256x256.png"
+        }
     },
     "groups": [
         "ships",
-        "laserGreen",
+        "bullets",
         "aliens",
-        "enemylaserRed",
+        "enemyBullets",
         "explosions"
     ],
     "prefabs": {
-        "ship": {
+        "player": {
             "type": "ship",
-            "position": {"x": 180, "y": 600},
+            "position": {
+                "x": 32,
+                "y": -150
+            },
             "properties": {
-                "texture": "ship_image",
-                "group": "ships",
-                "velocity": 200,
-                "shoot_rate": 5,
-                "bullet_velocity": 500
+                "texture": "player.png",
+                "group": "player",
+                "velocity": 250,
+                "shoot_rate": 8,
+                "bullet_velocity": -400
             }
         },
-        "enemy_spawner": {
-            "type": "enemy_spawner",
-            "position": {"x": 0, "y": 100},
+        "aliens": {
+            "type": "aliens",
+            "position": {
+                "x": 100,
+                "y": 50
+            },
             "properties": {
                 "texture": "",
-                "group": "enemy_spawners",
-                "spawn_interval": 1,
+                "group": "aliens",
                 "enemy_properties": {
-                    "texture": "enemy_spritesheet",
-                    "group": "enemies",
-                    "velocity": 50,
-                    "shoot_rate": 2,
-                    "bullet_velocity": 300
+                    "texture": "enemyShip.png",
+                    "group": "aliens",
+                    "velocity": 0,
+                    "shoot_rate": 2000,
+                    "bullet_velocity": 120
                 }
             }
         }
