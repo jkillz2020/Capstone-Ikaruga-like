@@ -75,5 +75,19 @@
                 }
             }
         }
+    },
+    "game_stats_data": {
+
+        "game_stats": {
+        "shots_fired": {"value": 0},
+        "enemies_killed": {"value": 0},
+        "lives_lost": {"value": 0}
+    },
+        "listeners": [
+            {"group": "bullets", "signal": "onShoot", "stat_name": "shots_fired", "value": 1},
+            {"group": "aliens", "signal": "onKill", "stat_name": "enemies_killed", "value": 1},
+            {"group": "ships", "signal": "onDeath", "stat_name": "lives_lost", "value": 1}
+        ]
     }
+        
 }

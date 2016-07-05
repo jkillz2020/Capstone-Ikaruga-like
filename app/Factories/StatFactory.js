@@ -5,13 +5,13 @@ angular.module('Ikaruga-like')
   var getGameObjects = function(go){
       let game = [];
       return $q(function(resolve, reject){
-        $http.get(`${firebaseURL}?s=${go}&y=&r=json`)
+        $http.get(`${firebaseURL}?s=${go}=json`)
           .success(function(gameObject){
             console.log("gameObject", gameObject);
-            var movieCollection = gameObject;
-            Object.keys(movieCollection).forEach(function(key){
-              movieCollection[key].id=key;
-              game.push(movieCollection[key]);
+            var gameCollection = gameObject;
+            Object.keys(gameCollection).forEach(function(key){
+              gameCollection[key].id=key;
+              game.push(gameCollection[key]);
             })
             console.log("game", game);
             resolve(game);
@@ -32,6 +32,8 @@ angular.module('Ikaruga-like')
           prefabs: newGame.prefabs,
           world: newGame.world,
           shots_fired: newGame.shots_fired,
+          enemies_killed: newGame.enemies_killed,
+          lives_lost: newGame.lives_lost,
           uid: user.uid
         })
       )
@@ -73,6 +75,8 @@ var getMyGameStats = function(){
                   prefabs: gameId.prefabs,
                   world: gameId.world,
                   shots_fired: gameId.shots_fired,
+                  enemies_killed: gameId.enemies_killed,
+                  lives_lost: gameId.lives_lost,
                   uid: gameId.uid
                   
                 })

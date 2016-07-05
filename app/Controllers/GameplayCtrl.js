@@ -1,5 +1,6 @@
+"use strict"
 angular.module("Ikaruga-like")
-    .controller('GameplayCtrl', function($scope){
+    .controller('GameplayCtrl', 'StatCtrl' function($scope){
         var game = new Phaser.Game(1200, 800, Phaser.AUTO, 'Ikaruga-like', { preload: preload, create: create, update: update });  
 
         var background;
@@ -18,7 +19,7 @@ angular.module("Ikaruga-like")
         var livingEnemies = [];
         var stateText;
 
-        function preload() {
+    function preload() {
           game.load.image('deep-space', 'assets/deep-space.jpg');
           game.load.spritesheet('player', 'spaceArt/png/player.png');
           game.load.spritesheet('bullet', 'spaceArt/png/laserGreen.png');
@@ -26,7 +27,7 @@ angular.module("Ikaruga-like")
           game.load.image('ship', 'spaceArt/png/life.png');
           game.load.spritesheet('explosions', 'https://github.com/photonstorm/phaser-examples/blob/master/examples/assets/sprites/explosion.png');
           game.load.spritesheet('enemyShip', 'spaceArt/png/enemyShip.png');
-        }
+        }//ends preload
     
 
     function create() {
@@ -105,6 +106,7 @@ angular.module("Ikaruga-like")
         fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         switchShield = game.input.keyboard.addKey(Phaser.Keyboard.CONTROL);
 
+        this.game_stats = this.game.plugins.add(Signal.GameStats, this, this.game_stats_data);
     } //ends create function
 
     function createAliens () {
@@ -340,7 +342,9 @@ angular.module("Ikaruga-like")
         })
       } 
 
-});  
+    
+};  
+
     
 
 
