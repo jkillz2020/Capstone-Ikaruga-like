@@ -17,7 +17,7 @@ app.config(function($routeProvider){
   $routeProvider.
     when('/',{
       templateUrl: 'partials/game.html',
-      controller: 'GameplayCtrl',
+      controller: 'GameplayCtrl'
        // resolve: {isAuth}
     }).
       when('/login', {

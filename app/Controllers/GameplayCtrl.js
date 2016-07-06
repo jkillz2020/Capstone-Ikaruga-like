@@ -1,6 +1,5 @@
-"use strict"
 angular.module("Ikaruga-like")
-    .controller('GameplayCtrl', 'StatCtrl' function($scope){
+    .controller('GameplayCtrl', function($scope, firebaseURL, AuthFactory){
         var game = new Phaser.Game(1200, 800, Phaser.AUTO, 'Ikaruga-like', { preload: preload, create: create, update: update });  
 
         var background;
@@ -18,8 +17,11 @@ angular.module("Ikaruga-like")
         var firingTimer = 0;
         var livingEnemies = [];
         var stateText;
+        var bulletCount = 0;
+        var enemies_killed = 0;
+        var lives_lost = 0;
 
-    function preload() {
+        function preload() {
           game.load.image('deep-space', 'assets/deep-space.jpg');
           game.load.spritesheet('player', 'spaceArt/png/player.png');
           game.load.spritesheet('bullet', 'spaceArt/png/laserGreen.png');
@@ -27,7 +29,7 @@ angular.module("Ikaruga-like")
           game.load.image('ship', 'spaceArt/png/life.png');
           game.load.spritesheet('explosions', 'https://github.com/photonstorm/phaser-examples/blob/master/examples/assets/sprites/explosion.png');
           game.load.spritesheet('enemyShip', 'spaceArt/png/enemyShip.png');
-        }//ends preload
+        }
     
 
     function create() {
@@ -106,7 +108,6 @@ angular.module("Ikaruga-like")
         fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         switchShield = game.input.keyboard.addKey(Phaser.Keyboard.CONTROL);
 
-        this.game_stats = this.game.plugins.add(Signal.GameStats, this, this.game_stats_data);
     } //ends create function
 
     function createAliens () {
@@ -172,13 +173,16 @@ angular.module("Ikaruga-like")
                 // Move down/back
                 player.body.velocity.y = 250;
             }
-           
+            else 
+            {
+                player.body.velocity.y = 0;
+                player.body.velocity.x = 0;
+            }
             if (fireButton.isDown)
             {
                 //firing?
                 fireBullet();
-                //shoot event and listener
-                this.events.onShoot = new Phaser.Signal();
+                
             }
             //if (switchShield.)
             // else (player.alive)
@@ -203,6 +207,8 @@ angular.module("Ikaruga-like")
         //  When a bullet hits an alien we kill them both
         bullet.kill();
         alien.kill();
+        enemies_killed++
+        console.log(enemies_killed);
 
         //  Increase the score
         score += 20;
@@ -237,6 +243,8 @@ angular.module("Ikaruga-like")
         if (live)
         {
             live.kill();
+            lives_lost++
+            console.log(lives_lost);
         }
 
         //  And create an explosion :)
@@ -247,6 +255,7 @@ angular.module("Ikaruga-like")
         // When the player dies
         if (lives.countLiving() < 1)
         {
+            saveScore();
             player.kill();
             enemyBullets.callAll('kill');
 
@@ -291,7 +300,7 @@ angular.module("Ikaruga-like")
     
 
     function fireBullet () {
-
+            
             //  To avoid them being allowed to fire too fast we set a time limit
             if (game.time.now > bulletTime)
             {
@@ -300,13 +309,15 @@ angular.module("Ikaruga-like")
 
                 if (bullet)
                 {
+                    bulletCount++
+                    console.log(bulletCount);
                     //  And fire it
                     bullet.reset(player.x, player.y + 8);
                     bullet.body.velocity.y = -400;
                     bulletTime = game.time.now + 200;
                 }
         }
-        this.events.onShoot.dispatch(this);
+        
     }
 
     function resetBullet (bullet) {
@@ -332,19 +343,23 @@ angular.module("Ikaruga-like")
         stateText.visible = false;
 
     } 
+    function saveScore() {
+        var ref = new Firebase(firebaseURL);
+        var user = AuthFactory.getUser();
+        var uid = user.uid;
+        var saveGame = {};
+        saveGame[uid]= {
+            score: score,
+            shots_fired: bulletCount,
+            enemies_killed: enemies_killed,
+            lives_lost: lives_lost
+          };
+        console.log(saveGame)
+        var usersRef = ref.child("users");
+        usersRef.set(saveGame);
+    }
+});
 
-    $scope.UpdateGame = function(gameId) {
-        gameId.shots_fired = $scope.shots_fired;
-        console.log("shots_fired", $scope.shots_fired);
-        gameStorage.updateGame(gameId)
-        .then(function(response){
-            console.log(response);
-        })
-      } 
-
+          
     
-};  
-
-    
-
 

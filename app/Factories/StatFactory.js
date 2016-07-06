@@ -91,7 +91,7 @@ var getMyGameStats = function(){
 var deleteGame = function(gameId) {
         return $q(function(resolve, reject) {
             $http
-                .delete(firebaseURL + "movie-scenesters/" + movieId + ".json")
+                .delete(firebaseURL + "ikaruga-like/" + gameId + ".json")
                 .success(function(objectFromFirebase) {
                   console.log("this array after the delete", objectFromFirebase)
                     resolve(objectFromFirebase)
