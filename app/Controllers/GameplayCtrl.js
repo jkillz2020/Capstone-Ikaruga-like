@@ -153,15 +153,13 @@ angular.module("Ikaruga-like")
             {
                 //  Move to the left
                 player.body.velocity.x = -250;
-
-                 //player.animations.play('left');
+   
             }
             else if (cursors.right.isDown)
             {
                 //  Move to the right
                 player.body.velocity.x = 250;
 
-                 //player.animations.play('right');
             }
             else if (cursors.up.isDown)
             {
@@ -230,6 +228,8 @@ angular.module("Ikaruga-like")
 
             //the "click to restart" handler
             game.input.onTap.addOnce(restart,this);
+
+            saveScore();
         }
 
     }
@@ -255,13 +255,13 @@ angular.module("Ikaruga-like")
         // When the player dies
         if (lives.countLiving() < 1)
         {
-            saveScore();
             player.kill();
             enemyBullets.callAll('kill');
 
             stateText.text=" GAME OVER \n Click to restart";
             stateText.visible = true;
 
+            saveScore();
             //the "click to restart" handler
             game.input.onTap.addOnce(restart,this);
         }
@@ -348,15 +348,26 @@ angular.module("Ikaruga-like")
         var user = AuthFactory.getUser();
         var uid = user.uid;
         var saveGame = {};
-        saveGame[uid]= {
+        saveGame = {
+            uid:  uid,
             score: score,
             shots_fired: bulletCount,
             enemies_killed: enemies_killed,
             lives_lost: lives_lost
           };
-        console.log(saveGame)
+        //console.log(saveGame)
         var usersRef = ref.child("users");
-        usersRef.set(saveGame);
+        usersRef.push(saveGame);
+
+        retrieveScores();
+    }
+
+    function retrieveScores(){
+        //console.log();
+        var ref = new Firebase(firebaseURL);
+        ref.orderByChild("users").on("child_added", function(snapshot) {
+        console.log(snapshot.val());
+});
     }
 });
 
